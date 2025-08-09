@@ -1,45 +1,64 @@
-import type { ApiCategoryProp, ApiMealProp, MaybeCategory } from "../types";
+import type {
+  ApiCategoryProp,
+  ApiMealByIdProps,
+  ApiMealProp,
+  MaybeCategory,
+} from "../types";
 
-
-export const fetchCategories = async (): Promise<ApiCategoryProp | undefined> => {
-    try {
-      const response = await fetch(
-        "https://www.themealdb.com/api/json/v1/1/categories.php"
-      );
-      if (!response.ok) {
-        throw new Error("API End point ");
-      }
-      const data:ApiCategoryProp = await response.json();
-      console.log('data', data)
-      return data;
-
-    } catch (e) {
-      if (e instanceof Error) {
-        throw new Error(e.message);
-      } else {
-        console.error(e);
-      }
-    }
-  };
-
-  export const fetchMealsByCategory = async (category:MaybeCategory):Promise<ApiMealProp | undefined> => {
-    try{
+export const fetchCategories = async (): Promise<
+  ApiCategoryProp | undefined
+> => {
+  try {
     const response = await fetch(
-        `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`
-      );
-      if (!response.ok) {
-        throw new Error("API End point ");
-      }
-      const data:ApiMealProp = await response.json();
-      console.log('data', data)
-      return data;
-
-    } catch (e) {
-      if (e instanceof Error) {
-        throw new Error(e.message);
-      } else {
-        console.error(e);
-      }
+      "https://www.themealdb.com/api/json/v1/1/categories.php"
+    );
+    if (!response.ok) {
+      throw new Error("API End point ");
+    }
+    const data: ApiCategoryProp = await response.json();
+    console.log("data", data);
+    return data;
+  } catch (e) {
+    if (e instanceof Error) {
+      throw new Error(e.message);
+    } else {
+      console.error(e);
     }
   }
-  
+};
+
+export const fetchMealsByCategory = async (
+  category: MaybeCategory
+): Promise<ApiMealProp | undefined> => {
+  try {
+    const response = await fetch(
+      `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`
+    );
+    if (!response.ok) {
+      throw new Error("API End point ");
+    }
+    const data: ApiMealProp = await response.json();
+    console.log("data", data);
+    return data;
+  } catch (e) {
+    if (e instanceof Error) {
+      throw new Error(e.message);
+    } else {
+      console.error(e);
+    }
+  }
+};
+
+export const fetchMealsById = async (
+  idMeal: string,
+  signal: AbortSignal
+): Promise<ApiMealByIdProps> => {
+  const response = await fetch(
+    `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`,
+    { signal }
+  );
+  if (!response.ok) {
+    throw new Error("API endpoint failed ");
+  }
+  return (await response.json()) as ApiMealByIdProps;
+};
