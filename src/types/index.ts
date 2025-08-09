@@ -10,16 +10,18 @@ export interface CategoryProp {
   strCategory: string;
   strCategoryThumb: string;
 }
-export type MaybeCategory = Category | ""
+export type MaybeCategory = Category | "";
 
 export interface CategoryContextProps {
   categories: Category[];
   setCategories: Dispatch<SetStateAction<Category[]>>;
   isLoading: boolean;
   setLoading: Dispatch<SetStateAction<boolean>>;
-  handleCategoryChange:(e:SelectChangeEvent<string>) => void
-  currentCategory:MaybeCategory;
-  setCurrentCategory:Dispatch<SetStateAction<MaybeCategory>>
+  handleCategoryChange: (e: SelectChangeEvent<string>) => void;
+  currentCategory: MaybeCategory;
+  setCurrentCategory: Dispatch<SetStateAction<MaybeCategory>>;
+  meals:Meal[];
+  setMeals:Dispatch<SetStateAction<Meal[]>>
 }
 
 export type Category =
@@ -35,4 +37,15 @@ export type Category =
   | "Vegan"
   | "Vegetarian"
   | "Breakfast"
-  | "Goat"
+  | "Goat";
+
+//   **************************** MEALS RELATED INTERFACES ****************************
+
+export interface Meal {
+  strMeal: string;
+  strMealThumb: string;
+  idMeal: string;
+}
+export interface ApiMealProp {
+  meals: Meal[];
+}
