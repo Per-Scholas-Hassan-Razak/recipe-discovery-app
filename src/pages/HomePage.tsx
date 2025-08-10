@@ -1,13 +1,14 @@
-
+import { Box } from "@mui/material";
 import MealCategory from "../components/MealCategory";
 import MealList from "../components/MealList";
 
-
 const HomePage = () => {
   return (
-  
-          <><MealCategory /><MealList /></>
-    
+    <><Box sx={{
+      display: 'flex'
+    }}>
+      <MealCategory />
+    </Box><MealList /></>
   );
 };
 

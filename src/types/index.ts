@@ -111,3 +111,12 @@ export interface MealByIdProps {
 export interface ApiMealByIdProps {
   meals: MealByIdProps[] | null;  
 }
+
+//   **************************** THEME INTERFACES ****************************
+
+export type ColorMode = "light" | "dark";
+
+export type ThemeModeContextProps = {
+  mode: ColorMode;
+  toggleTheme: () => void;
+};
