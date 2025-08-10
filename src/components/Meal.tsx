@@ -2,7 +2,9 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import type { MealByIdProps } from "../types"
 import {  fetchMealsById } from "../services/apiServices"
-import { CircularProgress } from "@mui/material"
+import { Box, Card, CardActions, CardContent, CardMedia, CircularProgress, IconButton, Tooltip, Typography } from "@mui/material"
+import { Link as RouterLink } from "react-router-dom";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const Meal = () => {
     
@@ -45,13 +47,9 @@ const Meal = () => {
 
 if (isLoading) return <CircularProgress />;
 
-
-console.log("mealId: ", mealId)
     return(
-      <div>
-        Fetching {meal?.strArea} success!
-      </div>
-    )
+<></>
+  );
        
 }
 

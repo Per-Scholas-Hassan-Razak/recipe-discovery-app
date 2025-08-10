@@ -1,9 +1,11 @@
-import { CircularProgress, List, ListItem, ListItemText } from "@mui/material";
+import { CircularProgress, Grid,  Typography } from "@mui/material";
 import { useSelectedCategory } from "../contexts/context";
-import { Link } from "react-router-dom";
+
 import { useEffect, useState } from "react";
 import type { MealProps } from "../types";
 import { fetchMealsByCategory } from "../services/apiServices";
+
+import MealCard from "./MealCard";
 
 const MealList = () => {
   const { selectedCategory } = useSelectedCategory();
@@ -32,18 +34,30 @@ const MealList = () => {
 
   if (isLoading) return <CircularProgress />;
 
+  if (!meals.length) return <Typography>No meals found.</Typography>;
+
   return (
-    <List>
-      {meals.map((m) => (
-        <ListItem>
-          <ListItemText>
-            <Link to={`/meals/${m.idMeal}`}>{m.idMeal}</Link>
-          </ListItemText>
-          <ListItemText>{m.strMeal}</ListItemText>
-          <ListItemText>{m.strMealThumb}</ListItemText>
-        </ListItem>
-      ))}
-    </List>
+ <>
+      <Grid container spacing={2} mt={3} sx={{
+        display:'flex',
+        justifyContent:'center'
+      }}>
+        {meals.map((m) => (
+          <Grid
+            key={m.idMeal}
+            item
+            xs={12}   
+            sm={6}    
+            md={3}    
+            lg={3}
+            xl={3}
+          >
+            <MealCard meal={m} />
+          </Grid>
+        ))}
+      </Grid>
+    </>
+ 
   );
 };
 

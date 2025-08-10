@@ -41,7 +41,10 @@ const MealCategory = () => {
   if (isLoading) return <CircularProgress />;
 
   return (
-    <FormControl fullWidth>
+    <FormControl
+    sx={{
+      width:'25%'
+    }}>
       <InputLabel id="category-select-label">Category</InputLabel>
       <Select
         labelId="category-select-label"

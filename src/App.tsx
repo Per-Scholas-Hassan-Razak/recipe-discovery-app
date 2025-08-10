@@ -9,7 +9,7 @@ import NavBar from "./components/NavBar";
 function App() {
 
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="xl">
       <CategoryProvider>
         <SelectedCategoryProvider>
           <NavBar />

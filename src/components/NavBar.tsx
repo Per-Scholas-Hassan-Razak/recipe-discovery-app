@@ -27,8 +27,6 @@ const NavBar = () => {
           )}
         </IconButton>
 
-     
-
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           Meals IDB API
         </Typography>
