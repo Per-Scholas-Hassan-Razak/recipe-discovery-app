@@ -1,4 +1,10 @@
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import {
+  CircularProgress,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import { useCategory, useSelectedCategory } from "../contexts/context";
 import { useState, useEffect } from "react";
 import { fetchCategories } from "../services/apiServices";
@@ -32,9 +38,9 @@ const MealCategory = () => {
     return () => controller.abort();
   }, []);
 
-  return isLoading ? (
-    <p>loading categories</p>
-  ) : (
+  if (isLoading) return <CircularProgress />;
+
+  return (
     <FormControl fullWidth>
       <InputLabel id="category-select-label">Category</InputLabel>
       <Select

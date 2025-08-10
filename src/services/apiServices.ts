@@ -18,25 +18,17 @@ export const fetchCategories = async (signal:AbortSignal): Promise<
 };
 
 export const fetchMealsByCategory = async (
-  category: MaybeCategory
+  category: MaybeCategory, 
+  signal:AbortSignal
 ): Promise<ApiMealProp | undefined> => {
-  try {
+
     const response = await fetch(
-      `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`
+      `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`, {signal}
     );
     if (!response.ok) {
-      throw new Error("API End point ");
+      throw new Error("API endpoint error ");
     }
-    const data: ApiMealProp = await response.json();
-    // console.log("data", data);
-    return data;
-  } catch (e) {
-    if (e instanceof Error) {
-      throw new Error(e.message);
-    } else {
-      console.error(e);
-    }
-  }
+    return (await response.json()) as ApiMealProp
 };
 
 export const fetchMealsById = async (

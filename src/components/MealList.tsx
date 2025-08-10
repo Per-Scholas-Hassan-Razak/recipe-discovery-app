@@ -11,27 +11,23 @@ const MealList = () => {
   const [meals, setMeals] = useState<MealProps[]>([]);
   const [isLoading, setLoading] = useState<boolean>(true);
 
-  const getMeals = async () => {
-    
-    try {
-      setLoading(true);
-      const data = await fetchMealsByCategory(selectedCategory);
-      if (data && data.meals) {
-        setMeals(data.meals);
-      }
-    } catch (e) {
-      if (e instanceof Error) {
-        console.error(e.message);
-      } else {
-        console.error(e);
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    getMeals();
+    const controller  = new AbortController();
+    
+    (async () => {
+      try {
+        setLoading(true);
+        const data = await fetchMealsByCategory(selectedCategory,controller.signal);
+        if (data && data.meals) {
+          setMeals(data.meals);
+        }
+      } catch (e) {
+     if (e instanceof DOMException && e.name === "AbortError") return;
+        console.error(e);
+      } finally {
+        setLoading(false);
+      }
+    })();
   }, [selectedCategory]);
 
   if (isLoading) return <CircularProgress />;
