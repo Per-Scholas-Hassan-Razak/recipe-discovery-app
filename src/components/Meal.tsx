@@ -26,9 +26,9 @@ const Meal = () => {
     (async () => {
       try {
         const data = await fetchMealsById(mealId, controller.signal);
-        console.log("raw api data", data)
+        // console.log("raw api data", data)
         const first = data?.meals?.[0];
-        console.log("shaped api data", first)
+        // console.log("shaped api data", first)
 
         setMeal(first);
       } catch (e) {

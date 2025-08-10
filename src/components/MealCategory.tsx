@@ -6,32 +6,30 @@ import type { MaybeCategory, Category } from "../types";
 
 const MealCategory = () => {
   const { categories, setCategories } = useCategory();
- const {selectedCategory, setSelectedCategory} = useSelectedCategory()
+  const { selectedCategory, setSelectedCategory } = useSelectedCategory();
   const [isLoading, setLoading] = useState<boolean>(true);
- 
-
-  const getCategories = async () => {
-    try {
-      setLoading(true);
-      const data = await fetchCategories();
-      if (data && data.categories) {
-        const options = data.categories.map((c) => c.strCategory as Category);
-        setCategories(options);
-        setSelectedCategory(options[0] ?? null);
-      }
-    } catch (e) {
-      if (e instanceof Error) {
-        console.error(e.message);
-      } else {
-        console.error(e);
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
 
   useEffect(() => {
-    getCategories();
+    const controller = new AbortController();
+
+    (async () => {
+      try {
+        setLoading(true);
+        const data = await fetchCategories(controller.signal);
+        if (data && data.categories) {
+          const options = data.categories.map((c) => c.strCategory as Category);
+          setCategories(options);
+          setSelectedCategory(options[0] ?? null);
+        }
+      } catch (e) {
+        if (e instanceof DOMException && e.name === "AbortError") return;
+        console.error(e);
+      } finally {
+        setLoading(false);
+      }
+    })();
+
+    return () => controller.abort();
   }, []);
 
   return isLoading ? (

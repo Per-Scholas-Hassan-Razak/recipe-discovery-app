@@ -5,26 +5,16 @@ import type {
   MaybeCategory,
 } from "../types";
 
-export const fetchCategories = async (): Promise<
+export const fetchCategories = async (signal:AbortSignal): Promise<
   ApiCategoryProp | undefined
 > => {
-  try {
     const response = await fetch(
-      "https://www.themealdb.com/api/json/v1/1/categories.php"
+      "https://www.themealdb.com/api/json/v1/1/categories.php", {signal}
     );
     if (!response.ok) {
-      throw new Error("API End point ");
+      throw new Error("API endpoint is not responding ");
     }
-    const data: ApiCategoryProp = await response.json();
-    console.log("data", data);
-    return data;
-  } catch (e) {
-    if (e instanceof Error) {
-      throw new Error(e.message);
-    } else {
-      console.error(e);
-    }
-  }
+    return (await response.json()) as ApiCategoryProp;
 };
 
 export const fetchMealsByCategory = async (
@@ -38,7 +28,7 @@ export const fetchMealsByCategory = async (
       throw new Error("API End point ");
     }
     const data: ApiMealProp = await response.json();
-    console.log("data", data);
+    // console.log("data", data);
     return data;
   } catch (e) {
     if (e instanceof Error) {
