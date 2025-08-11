@@ -1,4 +1,3 @@
-// src/components/MealCard.tsx
 import * as React from "react";
 import {
   Card,
@@ -39,9 +38,11 @@ const  MealCard = ({ meal }: Props) =>  {
           muiTheme.palette.mode === "light"
             ? muiTheme.palette.grey[100]
             : muiTheme.palette.grey[900],
+            alignItems:'center',
+            justifyContent:'center',
       }}
     >
-      <Box sx={{ position: "relative", width:'300px', height:"250px" }}>
+      <Box sx={{ position: "relative", width:'250px', height:"250px" }}>
         <CardMedia
           component="img"
           image={meal.strMealThumb}
@@ -54,7 +55,6 @@ const  MealCard = ({ meal }: Props) =>  {
         />
       </Box>
 
-      {/* Content */}
       <CardContent sx={{ flexGrow: 1 }}>
         <Typography variant="subtitle1" flexWrap={'wrap'} title={meal.strMeal}>
           {meal.strMeal}
@@ -64,7 +64,6 @@ const  MealCard = ({ meal }: Props) =>  {
         </Typography>
       </CardContent>
 
-      {/* Actions */}
       <CardActions sx={{ pt: 0 }}>
         <Tooltip title={fav ? "Unfavorite" : "Mark favorite"}>
           <IconButton

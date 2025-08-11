@@ -4,7 +4,7 @@ import type { ColorMode } from "../types";
 export const getTokens = (mode: ColorMode) => ({
   palette: {
     mode,
-    primary: { main: "#eaeef3ff" },
+    primary: { main: "#48b940ff" },
     background:
       mode === "light"
         ? { default: "#f5f5f5", paper: "#ffffff" }

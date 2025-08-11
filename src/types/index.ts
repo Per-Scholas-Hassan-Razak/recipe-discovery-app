@@ -112,6 +112,8 @@ export interface ApiMealByIdProps {
   meals: MealByIdProps[] | null;  
 }
 
+export type IngredientRow = { ingredient: string; measure: string };
+
 //   **************************** THEME INTERFACES ****************************
 
 export type ColorMode = "light" | "dark";
